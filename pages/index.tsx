@@ -1,4 +1,6 @@
+import { useState, useEffect } from "react";
 import Head from "next/head";
+import { getAllProducts } from "@utils/api";
 
 export default function Home() {
   return (
@@ -14,6 +16,6 @@ export default function Home() {
   );
 }
 
-export const  getStaticProps = async () => {
-  
-}
+// export const  getStaticProps = async () => {
+
+// }
