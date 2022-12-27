@@ -4,7 +4,9 @@ import { API_BASE_URL } from "./constants";
 
 export const getAllProducts = async (): Promise<Product[]> => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/products`);
+    const response = await axios.get(`${API_BASE_URL}/products`, {
+      headers: { "Accept-Encoding": "gzip,deflate,compress" },
+    });
     const data = response.data;
     return data;
   } catch {
@@ -14,7 +16,9 @@ export const getAllProducts = async (): Promise<Product[]> => {
 
 export const getSingleProduct = async (productId: number): Promise<Product> => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/products/${productId}`);
+    const response = await axios.get(`${API_BASE_URL}/products/${productId}`, {
+      headers: { "Accept-Encoding": "gzip,deflate,compress" },
+    });
     const data = response.data;
     return data;
   } catch {
@@ -24,7 +28,9 @@ export const getSingleProduct = async (productId: number): Promise<Product> => {
 
 export const getAllCategories = async (): Promise<Category[]> => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/products/categories`);
+    const response = await axios.get(`${API_BASE_URL}/products/categories`, {
+      headers: { "Accept-Encoding": "gzip,deflate,compress" },
+    });
     const data = response.data;
     return data;
   } catch {
@@ -37,7 +43,10 @@ export const getProductsInCategory = async (
 ): Promise<Product[]> => {
   try {
     const response = await axios.get(
-      `${API_BASE_URL}/products/category/${category}`
+      `${API_BASE_URL}/products/category/${category}`,
+      {
+        headers: { "Accept-Encoding": "gzip,deflate,compress" },
+      }
     );
     const data = response.data;
     return data;

@@ -1,8 +1,15 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import { getAllProducts } from "@utils/api";
+import { Product } from "@utils/types";
 
-export default function Home() {
+type Props = {
+  products: Product[];
+};
+
+export default function Home({ products }: Props) {
+  console.log(products);
+
   return (
     <>
       <Head>
@@ -16,6 +23,12 @@ export default function Home() {
   );
 }
 
-// export const  getStaticProps = async () => {
+export const getStaticProps = async () => {
+  const products: Product[] = await getAllProducts().then((data) => data);
 
-// }
+  return {
+    props: {
+      products,
+    },
+  };
+};

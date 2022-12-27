@@ -10,9 +10,11 @@ export const sortByPrice = (
   products: Product[],
   type: "asc" | "desc"
 ): Product[] => {
+  
   if (type == "asc") {
     return products.sort((a: Product, b: Product) => {
       return a.price - b.price;
+
     });
   } else {
     return products.sort((a: Product, b: Product) => {
