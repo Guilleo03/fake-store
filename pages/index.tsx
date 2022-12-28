@@ -5,6 +5,7 @@ import { Product, Category } from "@utils/types";
 
 import Layout from "@components/layout";
 import CategoryFilter from "@components/categoryFilter";
+import Catalogue from "@components/catalogue";
 
 type Props = {
   products: Product[];
@@ -23,7 +24,10 @@ export default function Home({ products, categories }: Props) {
       <main>
         <div className="container">
           <Layout>
-            <CategoryFilter categories={categories} />
+            <div className="filters">
+              <CategoryFilter categories={categories} />
+            </div>
+            <Catalogue products={products} />
           </Layout>
         </div>
       </main>

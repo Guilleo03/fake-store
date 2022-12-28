@@ -38,10 +38,36 @@ header {
   }
 }
 
+.filters {
+  width: 20%;
+}
+
 main {
   margin-top: 50px;
 }
 
 .layout {
   display: flex;
+}
+
+.catalogue {
+  width: 80%;
+
+  ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 35px;
+
+    li {
+      flex-basis: calc(40% - 92px);
+    }
+  }
+}
+
+.cardTitle {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
