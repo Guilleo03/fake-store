@@ -4,6 +4,7 @@ import { getAllProducts } from "@utils/api";
 import { Product } from "@utils/types";
 
 import Searchbar from "@components/searchbar";
+import CategoryFilter from "@components/categoryFilter";
 
 type Props = {
   products: Product[];
@@ -21,7 +22,9 @@ export default function Home({ products }: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div className="container"></div>
+        <div className="container">
+          <CategoryFilter />
+        </div>
       </main>
     </>
   );
