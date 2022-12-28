@@ -16,3 +16,28 @@ body {
   max-width: 1280px;
   margin: 0 auto;
 }
+
+header {
+  background-color: $primary;
+
+  .content {
+    padding: 16px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h1 {
+      color: white;
+    }
+
+    .icons {
+      display: flex;
+      gap: 50px;
+      color: white;
+    }
+  }
+}
+
+main {
+  margin-top: 50px;
+}

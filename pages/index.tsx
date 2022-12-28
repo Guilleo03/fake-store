@@ -3,6 +3,8 @@ import Head from "next/head";
 import { getAllProducts } from "@utils/api";
 import { Product } from "@utils/types";
 
+import Searchbar from "@components/searchbar";
+
 type Props = {
   products: Product[];
 };
@@ -18,7 +20,9 @@ export default function Home({ products }: Props) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main></main>
+      <main>
+        <div className="container"></div>
+      </main>
     </>
   );
 }
