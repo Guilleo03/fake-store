@@ -3,13 +3,11 @@ import { getAllCategories } from "@utils/api";
 import RadioGroup from "./radioGroup";
 import { Category } from "@utils/types";
 
-const CategoryFilter: FC = () => {
-  const [categories, setCategories] = useState<Category[]>([]);
+type Props = {
+  categories: Category[];
+};
 
-  useEffect(() => {
-    getAllCategories().then((data) => setCategories(data));
-  }, []);
-
+const CategoryFilter: FC<Props> = ({ categories }) => {
   return <RadioGroup title="Categories" options={categories} />;
 };
 

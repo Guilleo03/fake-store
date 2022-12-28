@@ -1,18 +1,17 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
-import { getAllProducts } from "@utils/api";
-import { Product } from "@utils/types";
+import { getAllProducts, getAllCategories } from "@utils/api";
+import { Product, Category } from "@utils/types";
 
-import Searchbar from "@components/searchbar";
+import Layout from "@components/layout";
 import CategoryFilter from "@components/categoryFilter";
 
 type Props = {
   products: Product[];
+  categories: Category[];
 };
 
-export default function Home({ products }: Props) {
-  console.log(products);
-
+export default function Home({ products, categories }: Props) {
   return (
     <>
       <Head>
@@ -23,7 +22,9 @@ export default function Home({ products }: Props) {
       </Head>
       <main>
         <div className="container">
-          <CategoryFilter />
+          <Layout>
+            <CategoryFilter categories={categories} />
+          </Layout>
         </div>
       </main>
     </>
@@ -31,11 +32,15 @@ export default function Home({ products }: Props) {
 }
 
 export const getStaticProps = async () => {
-  const products: Product[] = await getAllProducts().then((data) => data);
+  const [products, categories] = await Promise.all([
+    getAllProducts().then((data) => data),
+    getAllCategories().then((data) => data),
+  ]);
 
   return {
     props: {
       products,
+      categories,
     },
   };
 };
