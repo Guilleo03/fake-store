@@ -7,7 +7,7 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 
 type Props = {
-  options: any[];
+  options: { text: string; action: () => void }[];
   title: string;
 };
 
@@ -24,9 +24,10 @@ const RadioGroup: FC<Props> = ({ options, title }) => {
             options.map((option, index) => (
               <FormControlLabel
                 key={index}
-                value={option}
+                value={option.text}
                 control={<Radio />}
-                label={option}
+                label={option.text}
+                onClick={option.action}
               />
             ))}
         </RadioGroupMUI>

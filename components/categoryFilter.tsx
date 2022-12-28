@@ -1,5 +1,4 @@
-import { FC, useEffect, useState } from "react";
-import { getAllCategories } from "@utils/api";
+import { FC } from "react";
 import RadioGroup from "./radioGroup";
 import { Category } from "@utils/types";
 

@@ -1,3 +1,4 @@
+import { log } from "console";
 import { Product } from "./types";
 
 export const sortByPopularity = (products: Product[]): Product[] => {
@@ -16,7 +17,7 @@ export const sortByPrice = (
     });
   } else {
     return products.sort((a: Product, b: Product) => {
-      return a.price + b.price;
+      return b.price - a.price;
     });
   }
 };

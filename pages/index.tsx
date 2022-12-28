@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useStore } from "./../store";
 import Head from "next/head";
 import { getAllProducts, getAllCategories } from "@utils/api";
 import { Product, Category } from "@utils/types";
@@ -6,6 +7,7 @@ import { Product, Category } from "@utils/types";
 import Layout from "@components/layout";
 import CategoryFilter from "@components/categoryFilter";
 import Catalogue from "@components/catalogue";
+import PriceSort from "@components/priceSort";
 
 type Props = {
   products: Product[];
@@ -13,6 +15,11 @@ type Props = {
 };
 
 export default function Home({ products, categories }: Props) {
+  const { catalogue, defaultCatalogue } = useStore();
+  useEffect(() => {
+    defaultCatalogue(products);
+  }, [products]);
+
   return (
     <>
       <Head>
@@ -25,9 +32,10 @@ export default function Home({ products, categories }: Props) {
         <div className="container">
           <Layout>
             <div className="filters">
-              <CategoryFilter categories={categories} />
+              {/* <CategoryFilter categories={categories} /> */}
+              <PriceSort />
             </div>
-            <Catalogue products={products} />
+            <Catalogue products={catalogue} />
           </Layout>
         </div>
       </main>
