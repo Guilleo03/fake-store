@@ -2,19 +2,15 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useStore } from "./../../store";
 import Head from "next/head";
-import { getSingleProduct } from "@utils/api";
+import { getAllProducts, getSingleProduct } from "@utils/api";
 import { Product, Category } from "@utils/types";
+import { GetStaticPaths, GetStaticProps } from "next";
 
-export default function ProductDetail() {
-  const router = useRouter();
-  const { pid } = router.query;
+type Props = {
+  product: Product;
+};
 
-  const [product, setProduct] = useState<Product>();
-
-  useEffect(() => {
-    getSingleProduct(Number(pid)).then((data) => setProduct(data));
-  }, []);
-
+export default function ProductDetail({ product }: Props) {
   return (
     <>
       <Head>
@@ -30,16 +26,24 @@ export default function ProductDetail() {
   );
 }
 
-// export const getStaticProps = async () => {
-//   const [products, categories] = await Promise.all([
-//     getAllProducts().then((data) => data),
-//     getAllCategories().then((data) => data),
-//   ]);
+export const getStaticPaths = async () => {
+  const pIds = await getAllProducts().then((data) => data);
 
-//   return {
-//     props: {
-//       products,
-//       categories,
-//     },
-//   };
-// };
+  const paths = pIds.map((p) => ({
+    params: { pid: p.id.toString() },
+  }));
+
+  return { paths, fallback: false };
+};
+
+export const getStaticProps = async (context: any) => {
+  const { pid } = context.params;
+
+  const product = await getSingleProduct(pid).then((data) => data);
+
+  return {
+    props: {
+      product,
+    },
+  };
+};
