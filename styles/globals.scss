@@ -101,6 +101,23 @@ main {
   border: none;
   color: white;
   cursor: pointer;
+  position: relative;
+
+  .cartLength {
+    background-color: red;
+    color: white;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 18px;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translate(50%, 25%);
+    height: 18px;
+    border-radius: 10px;
+  }
 }
 
 .quantityDetail,

@@ -1,4 +1,4 @@
-import { useState, useEffect, ReactNode, FC } from "react";
+import { useState, useEffect, ReactNode, FC, forwardRef } from "react";
 import { useRouter } from "next/router";
 import { useStore } from "./../../store";
 import Image from "next/image";
@@ -10,6 +10,16 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { Typography } from "@mui/material";
 import star from "./../../assets/star.png";
 import _ from "lodash";
+import Snackbar from "@mui/material/Snackbar";
+
+import MuiAlert, { AlertProps } from "@mui/material/Alert";
+
+const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
+  props,
+  ref
+) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 type Props = {
   product: Product;
@@ -32,7 +42,20 @@ export default function ProductDetail({ product }: Props) {
 
   const [quantity, setQuantity] = useState(1);
 
+  const [open, setOpen] = useState(false);
+
   const rateingNumber = Math.round(product?.rating?.rate);
+
+  const handleClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   return (
     <>
@@ -42,6 +65,13 @@ export default function ProductDetail({ product }: Props) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+        <Alert severity="success" sx={{ width: "100%" }} onClose={handleClose}>
+          Product was added to cart
+        </Alert>
+      </Snackbar>
+
       <main>
         <div className="container">
           <div className="productContent">
@@ -80,7 +110,10 @@ export default function ProductDetail({ product }: Props) {
               <br />
               <Button
                 variant="contained"
-                onClick={() => addProduct(product, quantity)}
+                onClick={() => {
+                  setOpen(true);
+                  addProduct(product, quantity);
+                }}
               >
                 add to cart
               </Button>
@@ -113,3 +146,15 @@ export const getStaticProps = async (context: any) => {
     },
   };
 };
+
+// export default function CustomizedSnackbars() {
+
+//   return (
+//     <Stack spacing={2} sx={{ width: "100%" }}>
+//       <Button variant="outlined" onClick={handleClick}>
+//         Open success snackbar
+//       </Button>
+
+//     </Stack>
+//   );
+// }
