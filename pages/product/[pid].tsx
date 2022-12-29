@@ -1,16 +1,37 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, ReactNode, FC } from "react";
 import { useRouter } from "next/router";
 import { useStore } from "./../../store";
+import Image from "next/image";
 import Head from "next/head";
+import Button from "@mui/material/Button";
 import { getAllProducts, getSingleProduct } from "@utils/api";
 import { Product, Category } from "@utils/types";
 import { GetStaticPaths, GetStaticProps } from "next";
+import { Typography } from "@mui/material";
+import star from "./../../assets/star.png";
+import _ from "lodash";
 
 type Props = {
   product: Product;
 };
 
+type RateingProps = {
+  rate: number;
+};
+
+const Rateing: FC<RateingProps> = ({ rate }): any => {
+  const stars = _.range(1, rate + 1).map((value) => (
+    <Image key={value} src={star} alt="" width={24} height={24} />
+  ));
+
+  return stars;
+};
+
 export default function ProductDetail({ product }: Props) {
+  console.log(product);
+
+  const rateingNumber = Math.round(product?.rating?.rate);
+
   return (
     <>
       <Head>
@@ -20,7 +41,28 @@ export default function ProductDetail({ product }: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div className="container">{product?.title}</div>
+        <div className="container">
+          <div className="productContent">
+            <div className="imgContainer">
+              <Image src={product?.image} alt="" width={500} height={400} />
+            </div>
+            <div className="productInfo">
+              <Typography variant="h4">{product?.title}</Typography>
+              <br />
+              <Rateing rate={rateingNumber} />
+              <br />
+              <Typography variant="h5">{product?.category}</Typography>
+              <br />
+              <Typography variant="body1">{product?.description}</Typography>
+              <br />
+              <Typography variant="h4" color={"primary"}>
+                ${product?.price}
+              </Typography>
+              <br />
+              <Button variant="contained">add to cart</Button>
+            </div>
+          </div>
+        </div>
       </main>
     </>
   );

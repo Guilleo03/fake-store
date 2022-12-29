@@ -13,7 +13,7 @@ type Props = {
 };
 
 export default function Card({ product }: Props) {
-  const { id, title, price, image, rating } = product;
+  const { id, title, price, image } = product;
   return (
     <Link href={`/product/${id}`} style={{ textDecoration: "none" }}>
       <CardMUI

@@ -1,4 +1,3 @@
-import { log } from "console";
 import { Product } from "./types";
 
 export const sortByPopularity = (products: Product[]): Product[] => {

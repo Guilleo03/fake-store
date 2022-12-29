@@ -77,3 +77,21 @@ main {
   -webkit-line-clamp: 2;
   overflow: hidden;
 }
+
+.imgContainer {
+  position: relative;
+
+  img {
+    object-fit: contain;
+    mix-blend-mode: darken;
+  }
+}
+
+.productContent {
+  display: flex;
+  gap: 50px;
+}
+
+.productInfo {
+  width: 50%;
+}
