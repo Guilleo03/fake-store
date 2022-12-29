@@ -32,7 +32,7 @@ export default function Home({ products, categories }: Props) {
         <div className="container">
           <Layout>
             <div className="filters">
-              {/* <CategoryFilter categories={categories} /> */}
+              <CategoryFilter categories={categories} />
               <PriceSort />
             </div>
             <Catalogue products={catalogue} />

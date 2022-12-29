@@ -1,7 +1,8 @@
 import create from "zustand";
-import { Product } from "@utils/types";
+import { Category, Product } from "@utils/types";
 
 import { sortByPrice, sortByPopularity } from "@utils/functions";
+import { getProductsInCategory } from "@utils/api";
 
 interface State {
   catalogue: Product[];
@@ -9,6 +10,7 @@ interface State {
   sortByPriceDesc: () => void;
   sortByPriceAsc: () => void;
   sortByPopularity: () => void;
+  sortByCategory: (category: Category) => void;
 }
 
 export const useStore = create<State>((set) => ({
@@ -17,7 +19,7 @@ export const useStore = create<State>((set) => ({
     set(() => ({
       catalogue: catalogue,
     })),
-    
+
   sortByPriceDesc: () =>
     set((state) => ({
       catalogue: sortByPrice(state.catalogue, "desc"),
@@ -32,4 +34,11 @@ export const useStore = create<State>((set) => ({
     set((state) => ({
       catalogue: sortByPopularity(state.catalogue),
     })),
+
+  sortByCategory: async (category) => {
+    const catalogue = await getProductsInCategory(category).then(
+      (data) => data
+    );
+    set(() => ({ catalogue: catalogue }));
+  },
 }));
