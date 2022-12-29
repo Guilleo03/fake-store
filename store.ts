@@ -6,15 +6,23 @@ import { getProductsInCategory } from "@utils/api";
 
 interface State {
   catalogue: Product[];
+  cart: { product: Product; quantity: number }[];
+
   defaultCatalogue: (catalogue: Product[]) => void;
   sortByPriceDesc: () => void;
   sortByPriceAsc: () => void;
   sortByPopularity: () => void;
   sortByCategory: (category: Category) => void;
+
+  emptyCart: () => void;
+  addProduct: (product: Product, quantity: number) => void;
+  removeProduct: (product: Product) => void;
 }
 
 export const useStore = create<State>((set) => ({
   catalogue: [],
+  cart: [],
+
   defaultCatalogue: (catalogue) =>
     set(() => ({
       catalogue: catalogue,
@@ -40,5 +48,25 @@ export const useStore = create<State>((set) => ({
       (data) => data
     );
     set(() => ({ catalogue: catalogue }));
+  },
+
+  emptyCart: () =>
+    set(() => ({
+      cart: [],
+    })),
+
+  addProduct: (product, quantity) => {
+    set((state) => ({
+      cart: [
+        ...state.cart.filter((p) => p.product.id != product.id),
+        { product, quantity },
+      ],
+    }));
+  },
+
+  removeProduct: (product) => {
+    set((state) => ({
+      cart: state.cart.filter((p) => p.product.id != product.id),
+    }));
   },
 }));

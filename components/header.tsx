@@ -3,7 +3,11 @@ import Searchbar from "./searchbar";
 import LocalGroceryStoreOutlinedIcon from "@mui/icons-material/LocalGroceryStoreOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 
-const Header: FC = () => {
+type Props = {
+  setOpenModal: (value: boolean) => void;
+};
+
+const Header: FC<Props> = ({ setOpenModal }) => {
   return (
     <header>
       <div className="container">
@@ -11,7 +15,9 @@ const Header: FC = () => {
           <h1>Logo</h1>
           <Searchbar />
           <div className="icons">
-            <LocalGroceryStoreOutlinedIcon />
+            <button className="btnCart" onClick={() => setOpenModal(true)}>
+              <LocalGroceryStoreOutlinedIcon />
+            </button>
             <LogoutOutlinedIcon />
           </div>
         </div>

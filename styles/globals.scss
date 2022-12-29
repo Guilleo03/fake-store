@@ -95,3 +95,15 @@ main {
 .productInfo {
   width: 50%;
 }
+
+.btnCart {
+  background-color: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.quantityDetail,
+.btnRemove {
+  margin-right: 1rem;
+}

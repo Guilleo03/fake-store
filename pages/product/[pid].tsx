@@ -28,7 +28,9 @@ const Rateing: FC<RateingProps> = ({ rate }): any => {
 };
 
 export default function ProductDetail({ product }: Props) {
-  console.log(product);
+  const { addProduct } = useStore();
+
+  const [quantity, setQuantity] = useState(1);
 
   const rateingNumber = Math.round(product?.rating?.rate);
 
@@ -59,7 +61,29 @@ export default function ProductDetail({ product }: Props) {
                 ${product?.price}
               </Typography>
               <br />
-              <Button variant="contained">add to cart</Button>
+              <Typography variant="h6">
+                Quantity: <span className="quantityDetail">{quantity}</span>
+                <Button
+                  variant="outlined"
+                  onClick={() => setQuantity((current) => current - 1)}
+                  className="btnRemove"
+                >
+                  -
+                </Button>
+                <Button
+                  variant="outlined"
+                  onClick={() => setQuantity((current) => current + 1)}
+                >
+                  +
+                </Button>
+              </Typography>
+              <br />
+              <Button
+                variant="contained"
+                onClick={() => addProduct(product, quantity)}
+              >
+                add to cart
+              </Button>
             </div>
           </div>
         </div>
