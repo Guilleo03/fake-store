@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Category, Product } from "./types";
+import { Category, Product, User } from "./types";
 import { API_BASE_URL } from "./constants";
 
 export const getAllProducts = async (): Promise<Product[]> => {
@@ -48,6 +48,18 @@ export const getProductsInCategory = async (
         headers: { "Accept-Encoding": "gzip,deflate,compress" },
       }
     );
+    const data = response.data;
+    return data;
+  } catch {
+    throw "Error al llamar al servicio";
+  }
+};
+
+export const getAllUsers = async (): Promise<User[]> => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/users`, {
+      headers: { "Accept-Encoding": "gzip,deflate,compress" },
+    });
     const data = response.data;
     return data;
   } catch {

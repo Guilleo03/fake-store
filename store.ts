@@ -5,8 +5,11 @@ import { sortByPrice, sortByPopularity } from "@utils/functions";
 import { getProductsInCategory } from "@utils/api";
 
 interface State {
+  user: any;
   catalogue: Product[];
   cart: { product: Product; quantity: number }[];
+
+  saveUserData: (user: any) => void;
 
   defaultCatalogue: (catalogue: Product[]) => void;
   sortByPriceDesc: () => void;
@@ -20,8 +23,14 @@ interface State {
 }
 
 export const useStore = create<State>((set) => ({
+  user: null,
   catalogue: [],
   cart: [],
+
+  saveUserData: (user) =>
+    set(() => ({
+      user: user,
+    })),
 
   defaultCatalogue: (catalogue) =>
     set(() => ({

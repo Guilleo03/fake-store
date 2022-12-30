@@ -6,16 +6,24 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 export default function SignIn() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
+
+    const res = await signIn("credentials", {
+      username: data.get("username"),
       password: data.get("password"),
+      redirect: false,
     });
+
+    console.log(res);
   };
+
+  const { data: session } = useSession();
+  console.log(session);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -39,10 +47,10 @@ export default function SignIn() {
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            id="username"
+            label="Username"
+            name="username"
+            autoComplete="username"
             autoFocus
           />
           <TextField

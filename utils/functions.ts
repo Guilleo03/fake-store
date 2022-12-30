@@ -1,5 +1,6 @@
 import { Product } from "./types";
 import _ from "lodash";
+import { getAllUsers } from "./api";
 
 export const sortByPopularity = (products: Product[]): Product[] => {
   return products.sort((a: Product, b: Product) => {

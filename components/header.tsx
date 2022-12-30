@@ -3,6 +3,7 @@ import Searchbar from "./searchbar";
 import LocalGroceryStoreOutlinedIcon from "@mui/icons-material/LocalGroceryStoreOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import { useStore } from "./../store";
+import { signOut } from "next-auth/react";
 
 type Props = {
   setOpenModal: (value: boolean) => void;
@@ -26,7 +27,9 @@ const Header: FC<Props> = ({ setOpenModal }) => {
                 <span className="cartLength">{cartLength}</span>
               )}
             </button>
-            <LogoutOutlinedIcon />
+            <button onClick={() => signOut()} className="btnCart">
+              <LogoutOutlinedIcon />
+            </button>
           </div>
         </div>
       </div>
