@@ -13,17 +13,12 @@ export default function SignIn() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    const res = await signIn("credentials", {
+    signIn("credentials", {
       username: data.get("username"),
       password: data.get("password"),
-      redirect: false,
+      callbackUrl: "/catalogue",
     });
-
-    console.log(res);
   };
-
-  const { data: session } = useSession();
-  console.log(session);
 
   return (
     <Container component="main" maxWidth="xs">

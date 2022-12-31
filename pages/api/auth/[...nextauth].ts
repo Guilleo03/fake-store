@@ -14,7 +14,7 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       type: "credentials",
       credentials: { username: { label: "username", placeholder: "username" } },
-      authorize(credentials) {
+      async authorize(credentials) {
         console.log(credentials);
 
         const { username, password } = credentials as {
@@ -22,19 +22,16 @@ export const authOptions: NextAuthOptions = {
           password: string;
         };
 
-        // const allUsers = await getAllUsers().then((data) => data);
-        // const user = allUsers.find(
-        //   (u) => u.username == username && u.password == password
-        // );
-
-        const user = username == "juan";
+        const allUsers = await getAllUsers().then((data) => data);
+        const user = allUsers.find(
+          (u) => u.username == username && u.password == password
+        );
 
         if (!user) {
           return null;
         }
 
-        // return user as any;
-        return { id: "123" };
+        return user as any;
       },
     }),
   ],

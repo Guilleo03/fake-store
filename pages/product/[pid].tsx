@@ -1,16 +1,16 @@
-import { useState, useEffect, ReactNode, FC, forwardRef } from "react";
-import { useRouter } from "next/router";
+import { useState, useEffect, FC, forwardRef } from "react";
 import { useStore } from "./../../store";
 import Image from "next/image";
 import Head from "next/head";
 import Button from "@mui/material/Button";
 import { getAllProducts, getSingleProduct } from "@utils/api";
-import { Product, Category } from "@utils/types";
-import { GetStaticPaths, GetStaticProps } from "next";
+import { Product } from "@utils/types";
 import { Typography } from "@mui/material";
 import star from "./../../assets/star.png";
 import _ from "lodash";
 import Snackbar from "@mui/material/Snackbar";
+import { useSession } from "next-auth/react";
+import Router from "next/router";
 
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 
@@ -57,6 +57,12 @@ export default function ProductDetail({ product }: Props) {
     setOpen(false);
   };
 
+  const { status } = useSession();
+
+  useEffect(() => {
+    if (status === "unauthenticated") Router.replace("/");
+  }, [status]);
+
   return (
     <>
       <Head>
@@ -66,7 +72,7 @@ export default function ProductDetail({ product }: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
         <Alert severity="success" sx={{ width: "100%" }} onClose={handleClose}>
           Product was added to cart
         </Alert>

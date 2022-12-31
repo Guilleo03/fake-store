@@ -9,6 +9,9 @@ import CategoryFilter from "@components/categoryFilter";
 import Catalogue from "@components/catalogue";
 import PriceSort from "@components/priceSort";
 
+import { useSession } from "next-auth/react";
+import Router from "next/router";
+
 type Props = {
   products: Product[];
   categories: Category[];
@@ -19,6 +22,12 @@ export default function Home({ products, categories }: Props) {
   useEffect(() => {
     defaultCatalogue(products);
   }, [products]);
+
+  const { status } = useSession();
+
+  useEffect(() => {
+    if (status === "unauthenticated") Router.replace("/index");
+  }, [status]);
 
   return (
     <>

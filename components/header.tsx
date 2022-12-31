@@ -27,7 +27,14 @@ const Header: FC<Props> = ({ setOpenModal }) => {
                 <span className="cartLength">{cartLength}</span>
               )}
             </button>
-            <button onClick={() => signOut()} className="btnCart">
+            <button
+              onClick={() =>
+                signOut({
+                  callbackUrl: `/`,
+                })
+              }
+              className="btnCart"
+            >
               <LogoutOutlinedIcon />
             </button>
           </div>
